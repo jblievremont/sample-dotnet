@@ -8,6 +8,7 @@ namespace Sample
     public class SampleMain
     {
         private const string IpAddress = "12.34.56.78";
+        private const string Password = "super secret password";
 
         private SampleMain()
         {
@@ -19,9 +20,15 @@ namespace Sample
             // TODO Add more stuff here
             Console.WriteLine("Hey there! We'll contact " + IpAddress);
 
-            var p = new Process();
-            p.StartInfo.FileName = "/usr/bin/find";
-            p.StartInfo.ArgumentList.Add(args[0]);
+            if (args.Length == 1)
+            {
+                var p = new Process();
+                p.StartInfo.FileName = "/usr/bin/find";
+                p.StartInfo.ArgumentList.Add(args[0]);
+                p.StartInfo.ArgumentList.Add(Password);
+                p.Start();
+                p.WaitForExit();
+            }
         }
     }
 }
