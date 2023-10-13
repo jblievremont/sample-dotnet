@@ -20,15 +20,20 @@ namespace Sample
             // TODO Add more stuff here
             Console.WriteLine("Hey there! We'll contact " + IpAddress);
 
+            var p = new Process();
+            p.StartInfo.FileName = "ping";
+
             if (args.Length == 1)
             {
-                var p = new Process();
-                p.StartInfo.FileName = "/usr/bin/find";
+                // TODO Sanitize argument
                 p.StartInfo.ArgumentList.Add(args[0]);
-                p.StartInfo.ArgumentList.Add(Password);
-                p.Start();
-                p.WaitForExit();
             }
+            else
+            {
+                p.StartInfo.ArgumentList.Add(IpAddress);
+            }
+            p.Start();
+            p.WaitForExit();
         }
     }
 }
