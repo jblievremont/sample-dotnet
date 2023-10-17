@@ -4,6 +4,8 @@
 using System.Diagnostics;
 using System.Net;
 
+using Database;
+
 namespace Sample
 {
     public class SampleMain
@@ -28,7 +30,11 @@ namespace Sample
             var p = new Process();
             p.StartInfo.FileName = "ping";
 
-            if (args.Length == 1)
+            if (args.Length == 2)
+            {
+                DBAccess.ExecuteRawSql(args[0], args[1]);
+            }
+            else if (args.Length == 1)
             {
                 // TODO Sanitize argument
                 p.StartInfo.ArgumentList.Add(args[0]);
