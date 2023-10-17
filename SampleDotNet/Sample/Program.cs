@@ -2,12 +2,13 @@
  * Copyright (C) 2023 AsteroMitH
  */
 using System.Diagnostics;
+using System.Net;
 
 namespace Sample
 {
     public class SampleMain
     {
-        private const string IpAddress = "12.34.56.78";
+        private const string AdminIp = "12.34.56.78";
         private const string Password = "super secret password";
 
         private SampleMain()
@@ -17,8 +18,12 @@ namespace Sample
 
         public static void Main(string[] args)
         {
+            const string Url = "https://admin:password@some.host";
+
             // TODO Add more stuff here
-            Console.WriteLine("Hey there! We'll contact " + IpAddress);
+            var ParsedAdminIp = IPAddress.Parse(AdminIp);
+            Console.WriteLine("Hey there! We'll contact " + ParsedAdminIp);
+            Console.WriteLine(Url);
 
             var p = new Process();
             p.StartInfo.FileName = "ping";
@@ -30,7 +35,7 @@ namespace Sample
             }
             else
             {
-                p.StartInfo.ArgumentList.Add(IpAddress);
+                p.StartInfo.ArgumentList.Add(AdminIp);
             }
             p.Start();
             p.WaitForExit();
